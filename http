@@ -1,0 +1,93 @@
+Extended HTTP Error Codes
+
+Standard Codes
+
+We're all familiar with 404, and perhaps 403... but have you ever wondered what the other HTTP error codes are?
+
+Here, for your edification, is the list of RFC2068 (HTTP 1.1) client error (400-series) codes:
+
+400 Bad Request
+401 Unauthorized
+402 Payment Required
+403 Forbidden
+404 Not Found
+405 Method Not Allowed
+406 Not Acceptable
+407 Proxy Authentication Required
+408 Request Timeout
+409 Conflict
+410 Gone
+411 Length Required
+412 Precondition Failed
+413 Request Entity Too Large
+414 Request-URI Too Long
+415 Unsupported Media Type
+
+
+Status code	Status text	Description	HTTP version
+Informational responses
+100 Continue	»	This interim response indicates that everything so far is OK and that the client should continue with the request or ignore it if it is already finished.	HTTP/1.1 only
+101 Switching Protocol	»	This code is sent in response to an Update: request header by the client, and indicates that the protocol the server is switching too. It was introduced to allow migration to an incompatible protocol version, and is not in common use.	HTTP/1.1 only
+
+Successful responses
+200	»	OK
+201	Created	»	The request has succeeded and a new resource has been created as a result of it. This is typically the response sent after a PUT request.	HTTP/0.9 and later
+202	Accepted	»	The request has been received but not yet acted upon. It is non-committal, meaning that there is no way in HTTP to later send an asynchronous response indicating the outcome of processing the request. It is intended for cases where another process or server handles the request, or for batch processing.	HTTP/0.9 and later
+203	Non-Authoritative	»	Information	This response code means returned meta-information set is not exact set as available from the origin server, but collected from a local or a third party copy. Except this condition, 200 OK response should be preferred instead of this response.	HTTP/0.9 and 1.1
+204	No Content	»	There is no content to send for this request, but the headers may be useful. The user-agent may update its cached headers for this resource with the new ones.	HTTP/0.9 and later
+205	Reset Content	»	This response code is sent after accomplishing request to tell user agent reset document view which sent this request.	HTTP/1.1 only
+206	Partial Content	»	This response code is used because of range header sent by the client to separate download into multiple streams.	HTTP/1.1 only
+Redirection messages
+300	Multiple Choice	»	The request has more than one possible responses. User-agent or user should choose one of them. There is no standardized way to choose one of the responses.	HTTP/1.0 and later
+301	Moved Permanently	»	This response code means that URI of requested resource has been changed. Probably, new URI would be given in the response.	HTTP/0.9 and later
+302	Found	»	This response code means that URI of requested resource has been changed temporarily. New changes in the URI might be made in the future. Therefore, this same URI should be used by the client in future requests.	HTTP/0.9 and later
+303	See Other	»	Server sent this response to directing client to get requested resource to another URI with an GET request.	HTTP/0.9 and 1.1
+304	Not Modified	»	This is used for caching purposes. It is telling to client that response has not been modified. So, client can continue to use same cached version of response.	HTTP/0.9 and later
+305	Use Proxy	»	This means requested response must be accessed by a proxy. This response code is not largely supported because security reasons.	HTTP/1.1 only
+306	unused	»	This response code is no longer used, it is just reserved currently. It was used in a previous version of the HTTP 1.1 specification.	HTTP/1.1 only
+307	Temporary Redirect	»	Server sent this response to directing client to get requested resource to another URI with same method that used prior request. This has the same semantic than the 302 Found HTTP response code, with the exception that the user agent must not change the HTTP method used: if a POST was used in the first request, a POST must be used in the second request.	HTTP/1.1 only
+308	Permanent Redirect	»	This means that the resource is now permanently located at another URI, specified by the Location: HTTP Response header. This has the same semantics as the 301 Moved Permanently HTTP response code, with the exception that the user agent must not change the HTTP method used: if a POST was used in the first request, a POST must be used in the second request.
+
+Client error responses
+400	Bad Request	»	This response means that server could not understand the request due to invalid syntax.	HTTP/0.9 and later
+401	Unauthorized	»	Authentication is needed to get requested response. This is similar to 403, but in this case, authentication is possible.	HTTP/0.9 and later
+402	Payment Required	»	This response code is reserved for future use. Initial aim for creating this code was using it for digital payment systems however this is not used currently.	HTTP/0.9 and 1.1
+403	Forbidden	»	Client does not have access rights to the content so server is rejecting to give proper response.	HTTP/0.9 and later
+404	Not Found	»	Server can not find requested resource. This response code probably is most famous one due to its frequency to occur in web.	HTTP/0.9 and later
+405	Method Not Allowed	»	The request method is known by the server but has been disabled and cannot be used. The two mandatory methods, GET and HEAD, must never be disabled and should not return this error code.	HTTP/1.1 only
+406	Not Acceptable	»	This response is sent when the web server, after performing server-driven content negotiation, doesn't find any content following the criteria given by the user agent.	HTTP/1.1 only
+407	Proxy Authentication Required	»	This is similar to 401 but authentication is needed to be done by a proxy.	HTTP/1.1 only
+408	Request Timeout	»	This response is sent on an idle connection by some servers, even without any previous request by the client. It means that the server would like to shut down this unused connection. This response is used much more since some browsers, like Chrome or IE9, use HTTP preconnection mechanisms to speed up surfing (see bug 634278, which tracks the future implementation of such a mechanism in Firefox). Also note that some servers merely shut down the connection without sending this message.	HTTP/1.1 only
+409	Conflict	»	This response would be sent when a request conflict with current state of server.	HTTP/1.1 only
+410	Gone	»	This response would be sent when requested content has been deleted from server.	HTTP/1.1 only
+411	Length Required	»	Server rejected the request because the Content-Length header field is not defined and the server requires it.	HTTP/1.1 only
+412	Precondition Failed	»	The client has indicated preconditions in its headers which the server does not meet.	HTTP/1.1 only
+413	Request Entity Too Large	»	Request entity is larger than limits defined by server; the server might close the connection or return an Retry-After header field.	HTTP/1.1 only
+414	Request-URI Too Long	»	The URI requested by the client is too long for the server to handle.	HTTP/1.1 only
+415	Unsupported Media Type	»	The media format of the requested data is not supported by the server, so the server is rejecting the request.	HTTP/1.1 only
+416	Requested Range Not Satisfiable	»	The range specified by the Range header field in the request can't be fulfilled; it's possible that the range is outside the size of the target URI's data.	HTTP/1.1 only
+417	Expectation Failed	»	This response code means the expectation indicated by the Expect request header field can't be met by the server.	HTTP/1.1 only
+
+In addition, several extended client error codes exist, though they are not widely used:
+418 I'm a teapot	»	Any attempt to brew coffee with a teapot should result in this error. The resulting entity body MAY be short and stout.
+419 Assistance needed in delivering $45 Million (Forty-five Million US Dollars)
+420 Server stoned
+423 Insufficient Postage
+424 Dog in Yard
+425 Undeliverable as Addressed
+433 Client Certificate Lacks HAZMAT Endorsement
+447 Dropped by Accident in the Pacific Ocean
+478 It's Not My Fault
+746 Divergent Temporal Instability
+
+Server error responses
+500	Internal Server Error	»	The server has encountered a situation it doesn't know how to handle.	HTTP/0.9 and later
+501	Not Implemented	»	The request method is not supported by the server and cannot be handled. The only methods that servers are required to support (and therefore that must not return this code) are GET and HEAD.	HTTP/0.9 and later
+502	Bad Gateway	»	This error response means that the server, while working as a gateway to get a response needed to handle the request, got an invalid response.	HTTP/0.9 and later
+503	Service Unavailable	»	The server is not ready to handle the request. Common causes are a server that is down for maintenance or that is overloaded. Note that together with this response, a user-friendly page explaining the problem should be sent. This responses should be used for temporary conditions and the Retry-After: HTTP header should, if possible, contain the estimated time before the recovery of the service. The webmaster must also take care about the caching-related headers that are sent along with this response, as these temporary condition responses should usually not be cached.	HTTP/0.9 and later
+504	Gateway Timeout	»	This error response is given when the server is acting as a gateway and cannot get a response in time.	HTTP/1.1 only
+505	HTTP Version Not Supported	»	The HTTP version used in the request is not supported by the server.	HTTP/1.1 only
+
+
+If you're actually seeing HTTP error codes greater than 415 and less than 500, or error 746, they're bogus.
+For the authoritative reference, see http://www.ietf.org/rfc/rfc2068.txt.
