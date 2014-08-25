@@ -89,5 +89,5 @@ Server error responses
 505	HTTP Version Not Supported	»	The HTTP version used in the request is not supported by the server.	HTTP/1.1 only
 
 
-If you're actually seeing HTTP error codes greater than 415 and less than 500, or error 746, they're bogus.
+If you're actually seeing HTTP error codes greater than 417 and less than 500, or error 746, they're bogus.
 For the authoritative reference, see http://www.ietf.org/rfc/rfc2068.txt.
